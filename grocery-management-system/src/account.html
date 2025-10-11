@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account | Grocery Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    .account-section {
+        max-width: 500px;
+        margin: 3rem auto 2rem auto;
+        background: #f7f7f7;
+        border-radius: 14px;
+        padding: 2rem 1.5rem;
+        box-shadow: 0 2px 12px rgba(56,142,60,0.08);
+        text-align: center;
+    }
+    .account-section h2 {
+        color: #388e3c;
+        margin-bottom: 1.5rem;
+    }
+    .account-details, .account-orders {
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+    .account-details label {
+        font-weight: 600;
+        color: #388e3c;
+        display: block;
+        margin-top: 1rem;
+    }
+    .account-details input {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1.5px solid #b2dfdb;
+        border-radius: 6px;
+        font-size: 1rem;
+        background: #fff;
+        margin-top: 0.3rem;
+    }
+    .account-details input[disabled] {
+        background: #e8f5e9;
+        color: #388e3c;
+    }
+    .account-details button {
+        margin-top: 1.2rem;
+        background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+        transition: background 0.2s;
+    }
+    .account-details button:hover {
+        background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+    }
+    #account-message {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+    .account-orders h3 {
+        color: #388e3c;
+        margin-bottom: 0.7rem;
+    }
+    .orders-list {
+        background: #fff;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 1px 6px rgba(56,142,60,0.07);
+        margin-bottom: 1rem;
+    }
+    .orders-list li {
+        margin-bottom: 0.7rem;
+        color: #333;
+    }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>🛒</span>
+            <h2>GroceryMS</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html">Home</a>
+            <a href="index.html">Inventory</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Signup</a>
+            <a href="account.html" class="active">Account</a>
+        </nav>
+    </aside>
+    <header>
+        <h1>Grocery Management System</h1>
+    </header>
+    <main>
+        <section class="account-section">
+            <h2>My Account</h2>
+            <form id="account-form" class="account-details">
+                <label>
+                    Name:
+                    <input type="text" id="account-name" placeholder="Your Name">
+                </label>
+                <label>
+                    Email:
+                    <input type="email" id="account-email" required disabled>
+                </label>
+                <label>
+                    User Type:
+                    <input type="text" id="account-type" required disabled>
+                </label>
+                <label>
+                    New Password:
+                    <input type="password" id="account-password" placeholder="Enter new password">
+                </label>
+                <button type="submit">Update Account</button>
+                <div id="account-message"></div>
+            </form>
+            <div class="account-orders">
+                <h3>My Orders</h3>
+                <ul class="orders-list" id="orders-list">
+                    <!-- Orders will be loaded here -->
+                </ul>
+            </div>
+        </section>
+    </main>
+    <script>
+    // Demo: Load user info (simulate session with first user in localStorage)
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    let currentUser = users[0] || {email: '', type: '', name: ''}; // Replace with real session logic
+
+    // Fill in account details
+    document.getElementById('account-email').value = currentUser.email || '';
+    document.getElementById('account-type').value = currentUser.type || '';
+    document.getElementById('account-name').value = currentUser.name || '';
+
+    // Update account details
+    document.getElementById('account-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newPassword = document.getElementById('account-password').value;
+        const newName = document.getElementById('account-name').value.trim();
+        if (newName) currentUser.name = newName;
+        if (newPassword) currentUser.password = newPassword;
+        users = users.map(u => u.email === currentUser.email && u.type === currentUser.type ? currentUser : u);
+        localStorage.setItem('users', JSON.stringify(users));
+        document.getElementById('account-message').style.color = 'green';
+        document.getElementById('account-message').textContent = 'Account updated!';
+        document.getElementById('account-password').value = '';
+    });
+
+    // Demo: Orders (replace with real order logic)
+    const orders = [
+        { id: 1, items: ['Milk', 'Bread', 'Eggs'], date: '2024-06-01' },
+        { id: 2, items: ['Apples', 'Bananas'], date: '2024-06-10' }
+    ];
+    const ordersList = document.getElementById('orders-list');
+    orders.forEach(order => {
+        const li = document.createElement('li');
+        li.textContent = `Order #${order.id} (${order.date}): ${order.items.join(', ')}`;
+        ordersList.appendChild(li);
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | Grocery Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    .auth-section .input-group {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .auth-section .input-group input[type="password"],
+    .auth-section .input-group input[type="text"],
+    .auth-section .input-group input[type="email"] {
+        width: 100%;
+        padding-right: 2.5rem;
+    }
+    .auth-section .toggle-password {
+        position: absolute;
+        right: 0.8rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #388e3c;
+        font-size: 1.1rem;
+    }
+    .auth-section .user-type-icons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+    .auth-section .user-type-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: 2px solid transparent;
+        transition: border 0.2s, background 0.2s;
+        font-size: 1.1rem;
+    }
+    .auth-section .user-type-icon.selected {
+        border: 2px solid #43e97b;
+        background: #e8f5e9;
+    }
+    .auth-section .user-type-icon span {
+        font-size: 2rem;
+        margin-bottom: 0.2rem;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Grocery Management System</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="index.html">Inventory</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html" class="active">Signup</a>
+        </nav>
+    </header>
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>🛒</span>
+            <h2>GroceryMS</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html">Home</a>
+            <a href="index.html">Inventory</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html" class="active">Signup</a>
+            <a href="account.html">Account</a>
+        </nav>
+    </aside>
+    <main>
+        <section class="auth-section">
+            <h2>Signup</h2>
+            <form id="signup-form" autocomplete="on">
+                <div class="user-type-icons">
+                    <div class="user-type-icon selected" data-type="customer" id="icon-customer" tabindex="0">
+                        <span>👤</span>
+                        <label>Customer</label>
+                    </div>
+                    <div class="user-type-icon" data-type="shopowner" id="icon-shopowner" tabindex="0">
+                        <span>🏪</span>
+                        <label>Shop Owner</label>
+                    </div>
+                </div>
+                <input type="hidden" id="signup-user-type" value="customer">
+                <div class="input-group">
+                    <input type="email" id="signup-email" placeholder="Email" required autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signup-password" placeholder="Password" required autocomplete="new-password">
+                    <button type="button" class="toggle-password" tabindex="-1" aria-label="Show/Hide Password">&#128065;</button>
+                </div>
+                <button type="submit">Signup</button>
+                <p>Already have an account? <a href="login.html">Login</a></p>
+            </form>
+            <div id="signup-message"></div>
+        </section>
+    </main>
+    <script>
+    // User type icon selection
+    const userTypeInput = document.getElementById('signup-user-type');
+    const icons = document.querySelectorAll('.user-type-icon');
+    icons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            icons.forEach(i => i.classList.remove('selected'));
+            icon.classList.add('selected');
+            userTypeInput.value = icon.getAttribute('data-type');
+        });
+        icon.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                icon.click();
+            }
+        });
+    });
+
+    // Password visibility toggle
+    const passwordInput = document.getElementById('signup-password');
+    const togglePasswordBtn = document.querySelector('.toggle-password');
+    togglePasswordBtn.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePasswordBtn.innerHTML = '&#128064;';
+        } else {
+            passwordInput.type = 'password';
+            togglePasswordBtn.innerHTML = '&#128065;';
+        }
+    });
+
+    // Simple signup logic using localStorage (for demo only)
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const type = userTypeInput.value;
+        const email = document.getElementById('signup-email').value.trim();
+        const password = passwordInput.value;
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.find(u => u.email === email && u.type === type)) {
+            document.getElementById('signup-message').style.color = 'red';
+            document.getElementById('signup-message').textContent = 'User already exists!';
+            return;
+        }
+        users.push({ type, email, password });
+        localStorage.setItem('users', JSON.stringify(users));
+        document.getElementById('signup-message').style.color = 'green';
+        document.getElementById('signup-message').textContent = 'Signup successful! You can now login.';
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1200);
+    });
+    </script>
+</body>
+</html>

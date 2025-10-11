@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Grocery Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span>🛒</span>
+            <h2>GroceryMS</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html">Home</a>
+            <a href="index.html">Inventory</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" class="active">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Signup</a>
+            <a href="account.html">Account</a>
+        </nav>
+    </aside>
+    <header>
+        <h1>Grocery Management System</h1>
+    </header>
+    <main>
+        <h2>Contact</h2>
+        <p>
+            For any queries, please email: <a href="mailto:your.email@example.com">your.email@example.com</a>
+        </p>
+        <section class="contact-form-section">
+            <h3>Send us a message</h3>
+            <form id="contact-form">
+                <input type="text" id="contact-name" placeholder="Your Name" required>
+                <input type="email" id="contact-email" placeholder="Your Email" required>
+                <textarea id="contact-message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+            <div id="contact-message-status"></div>
+        </section>
+        <script>
+        // Simple contact form handler (demo only)
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('contact-message-status').style.color = 'green';
+            document.getElementById('contact-message-status').textContent = 'Thank you for your message!';
+            this.reset();
+        });
+        </script>
+    </main>
+</body>
+</html>
