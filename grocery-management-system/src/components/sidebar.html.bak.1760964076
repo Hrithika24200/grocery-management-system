@@ -1,0 +1,16 @@
+﻿<aside class="sidebar" aria-label="Main navigation">
+  <div class="sidebar-logo">
+    <span>��</span>
+    <h2>GroceryMS</h2>
+  </div>
+  <nav class="sidebar-nav" role="navigation">
+    <a href="home.html">Home</a>
+    <a href="index.html">Inventory</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
+    <a href="account.html">Account</a>
+    <a class="todo-cta" href="todolist/index.html">Todo List</a>
+  </nav>
+</aside>

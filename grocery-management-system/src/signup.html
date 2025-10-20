@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -54,43 +54,57 @@
     </style>
 </head>
 <body>
+<aside class="sidebar" aria-label="Main navigation">
+  <div class="sidebar-logo">
+    <span>��</span>
+    <h2>GroceryMS</h2>
+  </div>
+  <nav class="sidebar-nav" role="navigation">
+    <a href="home.html">Home</a>
+    <a href="index.html">Inventory</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
+    <a href="account.html">Account</a>
+    <a class="todo-cta" href="todolist/index.html">Todo List</a>
+  </nav>
+</aside>
+<script>
+(function(){
+  const links = document.querySelectorAll('.sidebar-nav a');
+  const current = window.location.pathname.split('/').pop() || '';
+  links.forEach(a => {
+    const href = (a.getAttribute('href')||'').split('/').pop();
+    if (href === current) a.classList.add('active');
+    a.addEventListener('click', ()=> { links.forEach(l=>l.classList.remove('active')); a.classList.add('active'); });
+  });
+})();
+</script>
+
     <header>
         <h1>Grocery Management System</h1>
         <nav>
             <a href="home.html">Home</a>
             <a href="index.html">Inventory</a>
             <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
+            <a href="contact form/index.html">Contact</a>
             <a href="login.html">Login</a>
             <a href="signup.html" class="active">Signup</a>
         </nav>
     </header>
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <span>🛒</span>
-            <h2>GroceryMS</h2>
-        </div>
-        <nav class="sidebar-nav">
-            <a href="home.html">Home</a>
-            <a href="index.html">Inventory</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html" class="active">Signup</a>
-            <a href="account.html">Account</a>
-        </nav>
-    </aside>
+    
     <main>
         <section class="auth-section">
             <h2>Signup</h2>
             <form id="signup-form" autocomplete="on">
                 <div class="user-type-icons">
                     <div class="user-type-icon selected" data-type="customer" id="icon-customer" tabindex="0">
-                        <span>👤</span>
+                        <span>CUSTOMER</span>
                         <label>Customer</label>
                     </div>
                     <div class="user-type-icon" data-type="shopowner" id="icon-shopowner" tabindex="0">
-                        <span>🏪</span>
+                        <span>OWNER</span>
                         <label>Shop Owner</label>
                     </div>
                 </div>
