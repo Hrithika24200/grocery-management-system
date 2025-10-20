@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Todo List</title>
+
+    <!-- global project styles (sidebar + layout) -->
+    <link rel="stylesheet" href="../styles.css" />
+    <!-- todo-specific styles -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+    /* minimal fallback so sidebar is visible even if global css missing */
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 200px;
+        background: linear-gradient(180deg,#43e97b,#38f9d7);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.2rem 0.6rem;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.08);
+        z-index: 1000;
+    }
+    .sidebar-logo { display:flex; align-items:center; gap:0.6rem; padding:0 0.4rem; }
+    .sidebar-logo span{ font-size:1.6rem; }
+    .sidebar-nav{ display:flex; flex-direction:column; gap:0.35rem; margin-top:0.6rem; }
+    .sidebar-nav a{
+        color: white; text-decoration:none; padding:0.55rem 0.6rem; border-radius:8px; font-weight:600;
+    }
+    .sidebar-nav a.active, .sidebar-nav a:hover {
+        background: #e8f5e9; color:#388e3c;
+    }
+
+    /* new todo CTA button style */
+    .todo-cta {
+        display:inline-block;
+        margin-top: 8px;
+        padding: 8px 10px;
+        background: #fff;
+        color: #388e3c;
+        border-radius: 8px;
+        font-weight:700;
+        text-align:center;
+        text-decoration:none;
+        border: 2px solid rgba(56,142,60,0.12);
+    }
+    .todo-cta:hover { background: #f1fff7; color:#2d7a4f; }
+
+    /* push main content to the right on wide screens */
+    @media (min-width: 701px) {
+        body { margin-left: 210px; }
+    }
+    @media (max-width:700px) {
+        .sidebar { position: static; width:100%; height:auto; flex-direction:row; align-items:center; }
+        body { margin-left:0; padding-top:12px; }
+        .sidebar-nav { flex-direction:row; gap:0.5rem; margin-left:0.6rem; }
+    }
+    </style>
+</head>
+<body>
+    <aside class="sidebar" aria-label="Main navigation">
+        <div class="sidebar-logo">
+            <span>🛒</span>
+            <h2 style="font-size:1rem; margin:0;">GroceryMS</h2>
+        </div>
+        <nav class="sidebar-nav" role="navigation">
+            <a href="../home.html">Home</a>
+            <a href="../index.html">Inventory</a>
+            <a href="../about.html">About</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html">Login</a>
+            <a href="../signup.html">Signup</a>
+            <a href="../account.html">Account</a>
+
+            <!-- existing inline link kept for same-folder usage -->
+            <a href="index.html" id="todo-link">Todo</a>
+
+            <!-- new prominent button linking to the todo page from other pages -->
+            <a class="todo-cta" href="../todolist/index.html">Open Todo List</a>
+        </nav>
+    </aside>
+
+    <main class="container" aria-live="polite">
+        <h1>Todo List</h1>
+
+        <div class="controls">
+            <form id="addForm" class="new-task" onsubmit="return false;">
+                <input id="taskInput" type="text" placeholder="Add a new task and press Add or Enter" autocomplete="off" />
+                <button id="addBtn" type="submit">Add</button>
+            </form>
+
+            <div class="toolbar">
+                <div class="filters" role="tablist" aria-label="Filters">
+                    <button data-filter="all" class="active">All</button>
+                    <button data-filter="active">Active</button>
+                    <button data-filter="completed">Completed</button>
+                </div>
+                <button id="clearCompleted" class="secondary" title="Clear completed">Clear done</button>
+            </div>
+        </div>
+
+        <ul id="taskList" class="list" aria-label="Tasks"></ul>
+
+        <div class="empty" id="emptyMessage" hidden>No tasks yet — add your first task.</div>
+
+        <div class="footer-row">
+            <div class="count" id="count">0 items</div>
+            <div class="tip">Tip: drag handle to reorder, click Edit to change text</div>
+        </div>
+    </main>
+
+    <script>
+    // set active nav link based on current path (works when opened in browser)
+    (function(){
+        const links = document.querySelectorAll('.sidebar-nav a');
+        const current = window.location.pathname.split('/').pop() || 'index.html';
+        links.forEach(a => {
+            const href = a.getAttribute('href').split('/').pop();
+            if (href === current) a.classList.add('active');
+        });
+    })();
+    </script>
+
+    <script src="todolist.js" defer></script>
+</body>
+</html>

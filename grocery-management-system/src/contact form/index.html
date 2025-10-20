@@ -1,0 +1,392 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Contact - GroceryMS</title>
+
+    <style>
+        /* minimal styles for validation feedback */
+        .error {
+            color: #c00;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            min-height: 1.2em;
+        }
+        .invalid {
+            border-color: #c00;
+        }
+        /* reset including pseudo-elements to avoid layout issues */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        body{
+            font-family: 'Outfit', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(#87ceeb,#fffdd0);
+            min-height: 100vh;
+            color: #222;
+        }
+
+        /* basic sidebar layout and small-screen responsive behaviour */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 220px;
+            padding: 20px;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 2px 0 8px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            z-index: 20;
+        }
+        main { margin-left: 240px; padding: 24px; }
+
+        .sidebar-logo {
+            display:flex;
+            align-items:center;
+            gap:8px;
+            font-weight:600;
+        }
+        .sidebar-nav {
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+        }
+        .sidebar-nav a {
+            text-decoration:none;
+            color: #333;
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+        .sidebar-nav a[aria-current="page"] {
+            background: linear-gradient(90deg,#ff994f,#fa6d86);
+            color:#fff;
+        }
+        }
+        .contact-container{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .contact-left{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .contact-left-title h2{
+            font-weight: 600;
+            color: #ff0;
+            font-size: 40px;
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
+        .contact-left-title hr{
+            border: none;
+            width: 120px;
+            height: 5px;
+            background-color: #a363aa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .contact-inputs{
+            width: 400px;
+            height: 50px;
+            border: none;
+            outline: none;
+            padding-left: 25px;
+            font-weight: 500;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+        }
+        .contact-inputs:focus{
+            border: 2px solid #ff994f;
+        }
+        .contact-inputs::placeholder{
+            color: #a9a9a9;
+        }
+        .contact-left button{
+            display: flex;
+            align-items: center;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: #fff;
+            gap: 10px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(270deg, #ff994f, #fa6d86);
+            cursor: pointer;
+        }
+        .contact-left button img{
+            height: 15px;
+        }
+        .contact-right img{
+            width: 500px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Use CSS Grid for the main layout on larger viewports, fallback to flex for smaller */
+        @media (min-width: 801px) {
+            .contact-container {
+                display: grid;
+                grid-template-columns: 1fr 520px;
+                gap: 48px;
+                align-items: center;
+                padding: 48px;
+                min-height: 100vh;
+            }
+        }
+
+        /* keep the existing mobile behavior but improve spacing */
+        @media (max-width: 800px) {
+            .contact-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 32px 16px;
+                height: auto;
+            }
+            .contact-inputs{
+                width: 80vw;
+            }
+            .contact-right{
+                display: none;
+            }
+            .contact-info {
+                grid-template-columns: 1fr;
+                width: 90%;
+                margin-top: 8px;
+            }
+        }
+
+        /* right column layout */
+        .contact-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 16px;
+        }
+
+        /* contact-info grid next to the illustration */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        /* visual styling for info cards */
+        .info-card {
+            background: rgba(255,255,255,0.9);
+            padding: 14px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .info-card h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #333;
+            text-transform: capitalize;
+        }
+        .info-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--main-text-color, #555);
+            line-height: 1.3;
+        }
+
+        /* small helper for screen reader labels if .sr-only used */
+        .sr-only {
+            position: absolute !important;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+
+    <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form.contact-left');
+        if (!form) return;
+
+        const nameEl = document.getElementById('name');
+        const emailEl = document.getElementById('email');
+        const messageEl = document.getElementById('message');
+
+        const nameErr = document.getElementById('nameError');
+        const emailErr = document.getElementById('emailError');
+        const messageErr = document.getElementById('messageError');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function setError(el, errEl, msg) {
+            if (msg) {
+                errEl.textContent = msg;
+                el.classList.add('invalid');
+                el.setAttribute('aria-invalid', 'true');
+            } else {
+                errEl.textContent = '';
+                el.classList.remove('invalid');
+                el.removeAttribute('aria-invalid');
+            }
+        }
+
+        function validateName() {
+            const v = nameEl.value.trim();
+            if (!v) { setError(nameEl, nameErr, 'Name is required'); return false; }
+            if (v.length < 2) { setError(nameEl, nameErr, 'Name must be at least 2 characters'); return false; }
+            setError(nameEl, nameErr, ''); return true;
+        }
+
+        function validateEmail() {
+            const v = emailEl.value.trim();
+            if (!v) { setError(emailEl, emailErr, 'Email is required'); return false; }
+            if (!emailRegex.test(v)) { setError(emailEl, emailErr, 'Enter a valid email address'); return false; }
+            setError(emailEl, emailErr, ''); return true;
+        }
+
+        function validateMessage() {
+            const v = messageEl.value.trim();
+            if (!v) { setError(messageEl, messageErr, 'Message is required'); return false; }
+            if (v.length < 10) { setError(messageEl, messageErr, 'Message must be at least 10 characters'); return false; }
+            setError(messageEl, messageErr, ''); return true;
+        }
+
+        nameEl && nameEl.addEventListener('input', validateName);
+        emailEl && emailEl.addEventListener('input', validateEmail);
+        messageEl && messageEl.addEventListener('input', validateMessage);
+
+        // single submit handler: validate then post via fetch to avoid duplicate native submissions
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            const n = validateName();
+            const em = validateEmail();
+<aside class="sidebar" aria-label="Main navigation">
+  <div class="sidebar-logo">
+    <span>GM</span>
+    <h2>GroceryMS</h2>
+  </div>
+  <nav class="sidebar-nav" role="navigation">
+    <a href="../home.html">Home</a>
+    <a href="../index.html">Inventory</a>
+    <a href="../about.html">About</a>
+    <a href="../contact%20form/index.html" aria-current="page">Contact</a>
+    <a href="../login.html">Login</a>
+    <a href="../signup.html">Signup</a>
+    <a href="../account.html">Account</a>
+    <a class="todo-cta" href="../todolist/index.html">Todo List</a>
+  </nav>
+</aside>
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!res.ok) throw new Error('Network response was not ok');
+
+                // success — reset form or show a message
+                form.reset();
+                alert('Message sent successfully.');
+            } catch (err) {
+                alert('Submission failed. Please try again.');
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.style.opacity = '';
+                }
+            }
+        }, { passive: false });
+    });
+    </script>
+</head>
+<body>
+
+<aside class="sidebar" aria-label="Main navigation">
+  <div class="sidebar-logo">
+    <span>GM</span>
+    <h2>GroceryMS</h2>
+  </div>
+  <nav class="sidebar-nav" role="navigation">
+    <a href="../home.html">Home</a>
+    <a href="../index.html">Inventory</a>
+    <a href="../about.html">About</a>
+    <a href="./index.html">Contact</a>
+    <a href="../login.html">Login</a>
+    <a href="../signup.html">Signup</a>
+    <a href="../account.html">Account</a>
+    <a class="todo-cta" href="../todolist/index.html">Todo List</a>
+  </nav>
+</aside>
+
+<main>
+    <div class="contact-container">
+        <!-- novalidate so we use custom validation -->
+        <form action="https://api.web3forms.com/submit" method="POST" class="contact-left" novalidate>
+            <div class="contact-left-title">
+                <h2>get in touch</h2>
+                <hr>
+            </div>
+
+            <input type="hidden" name="access_key" value="d838b20d-f185-4d39-b51d-508779b5d246">
+
+            <!-- name field: added name and id -->
+            <label for="name" class="sr-only">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" class="contact-inputs" required>
+            <div id="nameError" class="error" aria-live="polite"></div>
+
+            <label for="email" class="sr-only">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" class="contact-inputs" required>
+            <div id="emailError" class="error" aria-live="polite"></div>
+
+            <label for="message" class="sr-only">Your Message</label>
+            <textarea id="message" name="message" placeholder="Your Message" class="contact-inputs" required></textarea>
+            <div id="messageError" class="error" aria-live="polite"></div>
+
+            <button type="submit">Submit <img src="assets/Screenshot 2025-10-16 110516.png" alt=""></button>
+        </form>
+
+        <div class="contact-right">
+            <img src="Enquiry form_Contact me page design.jpg" alt="Contact illustration">
+
+            <div class="contact-info" aria-hidden="false">
+                <div class="info-card">
+                    <h4>address</h4>
+                    <p>123 Market St, Suite 400<br/>City, State 12345</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>phone</h4>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>hours</h4>
+                    <p>Mon–Fri: 9am – 6pm<br/>Sat: 10am – 4pm</p>
+                </div>
+            </div>
+        </div> <!-- .contact-right -->
+    </div> <!-- .contact-container -->
+</main>
+
+</body>
+</html>
+

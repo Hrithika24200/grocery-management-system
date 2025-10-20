@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,34 +7,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<aside class="sidebar" aria-label="Main navigation">
-  <div class="sidebar-logo">
-    <span>��</span>
-    <h2>GroceryMS</h2>
-  </div>
-  <nav class="sidebar-nav" role="navigation">
-    <a href="home.html">Home</a>
-    <a href="index.html">Inventory</a>
-    <a href="about.html">About</a>
-    <a href="contact form/index.html">Contact</a>
-    <a href="login.html">Login</a>
-    <a href="signup.html">Signup</a>
-    <a href="account.html">Account</a>
-    <a class="todo-cta" href="todolist/index.html">Todo List</a>
-  </nav>
-</aside>
-<script>
-(function(){
-  const links = document.querySelectorAll('.sidebar-nav a');
-  const current = window.location.pathname.split('/').pop() || '';
-  links.forEach(a => {
-    const href = (a.getAttribute('href')||'').split('/').pop();
-    if (href === current) a.classList.add('active');
-    a.addEventListener('click', ()=> { links.forEach(l=>l.classList.remove('active')); a.classList.add('active'); });
-  });
-})();
-</script>
-
     <!-- sidebar will be injected here -->
     <div id="sidebar-root"></div>
 
@@ -76,7 +48,7 @@
                 <a href="index.html" class="cta-btn">Get Started</a>
                 <!-- In Quick Actions -->
                 <a href="index.html" class="quick-action-card">
-                    <span>ðŸ“‹</span>
+                    <span>📋</span>
                     <div>
                         <h4>View Inventory</h4>
                         <p>See all your groceries at a glance and manage them.</p>
@@ -98,17 +70,17 @@
             <h2>Features</h2>
             <div class="features-list">
                 <div class="feature-card">
-                    <span class="feature-icon">ðŸ“¦</span>
+                    <span class="feature-icon">📦</span>
                     <h3>Inventory Tracking</h3>
                     <p>Keep track of all your grocery items, quantities, and categories in one place.</p>
                 </div>
                 <div class="feature-card">
-                    <span class="feature-icon">ðŸ””</span>
+                    <span class="feature-icon">🔔</span>
                     <h3>Smart Reminders</h3>
                     <p>Get notified when items are running low so you never run out of essentials.</p>
                 </div>
                 <div class="feature-card">
-                    <span class="feature-icon">ðŸ“Š</span>
+                    <span class="feature-icon">📊</span>
                     <h3>Analytics</h3>
                     <p>Visualize your grocery usage trends and optimize your shopping habits.</p>
                 </div>
@@ -142,21 +114,21 @@
             <h2>Quick Actions</h2>
             <div class="quick-actions-list">
                 <a href="index.html" class="quick-action-card">
-                    <span>âž•</span>
+                    <span>➕</span>
                     <div>
                         <h4>Add Item</h4>
                         <p>Quickly add a new grocery item to your inventory.</p>
                     </div>
                 </a>
                 <a href="index.html" class="quick-action-card">
-                    <span>ðŸ“‹</span>
+                    <span>📋</span>
                     <div>
                         <h4>View Inventory</h4>
                         <p>See all your groceries at a glance and manage them.</p>
                     </div>
                 </a>
                 <a href="index.html" class="quick-action-card">
-                    <span>ðŸ—‘ï¸</span>
+                    <span>🗑️</span>
                     <div>
                         <h4>Clear Inventory</h4>
                         <p>Remove all items from your inventory in one click.</p>
@@ -168,10 +140,10 @@
         <section class="tips">
             <h2>Grocery Tips</h2>
             <ul class="tips-list">
-                <li>ðŸ›’ <strong>Plan Ahead:</strong> Make a shopping list before you go to the store.</li>
-                <li>ðŸ¥¦ <strong>Store Properly:</strong> Keep perishables in the fridge and dry goods in airtight containers.</li>
-                <li>â° <strong>Check Expiry:</strong> Regularly check expiry dates to reduce waste.</li>
-                <li>ðŸ’¡ <strong>Buy in Bulk:</strong> For non-perishables, buying in bulk can save money.</li>
+                <li>🛒 <strong>Plan Ahead:</strong> Make a shopping list before you go to the store.</li>
+                <li>🥦 <strong>Store Properly:</strong> Keep perishables in the fridge and dry goods in airtight containers.</li>
+                <li>⏰ <strong>Check Expiry:</strong> Regularly check expiry dates to reduce waste.</li>
+                <li>💡 <strong>Buy in Bulk:</strong> For non-perishables, buying in bulk can save money.</li>
             </ul>
         </section>
 
